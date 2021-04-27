@@ -1,9 +1,9 @@
 <?php
 
-namespace Commander\Command;
+namespace Baby\Command;
 
-use Commander\Input\InputArgument;
-use Commander\Input\InputOption;
+use Baby\Input\InputArgument;
+use Baby\Input\InputOption;
 use Symfony\Component\Console\Input\InputDefinition;
 
 class Command extends \Symfony\Component\Console\Command\Command

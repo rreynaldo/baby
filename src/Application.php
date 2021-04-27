@@ -1,12 +1,13 @@
 <?php
 
-namespace Commander;
+namespace Baby;
 
 use Closure;
-use Commander\Command\Command;
-use Commander\Command\ExpressionParser;
-use Commander\Task\Scheduler;
-use Commander\Task\TaskInterface;
+use Baby\Command\Command;
+use Baby\Command\ExpressionParser;
+use Baby\Task\RunCommand;
+use Baby\Task\Scheduler;
+use Baby\Task\TaskInterface;
 use Exception;
 use InvalidArgumentException;
 use Invoker\Exception\InvocationException;
@@ -31,6 +32,7 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use function DI\value;
 
 
 class Application extends SymfonyApplication
@@ -46,20 +48,25 @@ class Application extends SymfonyApplication
   private $invoker;
 
   /**
+   * @var Scheduler
+   */
+  private $scheduler;
+
+  /**
    * @var ContainerInterface|null
    */
   private ?ContainerInterface $container;
 
-  /**
-   * @var Scheduler|null
-   */
-  private Scheduler $scheduler;
 
   public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
   {
-    $this->scheduler = new Scheduler();
+
     $this->expressionParser = new ExpressionParser();
     $this->invoker = new Invoker($this->createParameterResolver());
+    $this->scheduler = new Scheduler();
+
+    $this->add(new RunCommand($this->scheduler));
+
 
     parent::__construct($name, $version);
   }
@@ -120,10 +127,6 @@ class Application extends SymfonyApplication
     return $command;
   }
 
-  function schedule(TaskInterface $task)
-  {
-    $this->scheduler->addTask($task);
-  }
 
   /**
    * Set up the application to use a container to resolve callables.
@@ -168,7 +171,6 @@ class Application extends SymfonyApplication
     if ($injectByParameterName) {
       $resolver->appendResolver(new ParameterNameContainerResolver($container));
     }
-
     $this->invoker = new Invoker($resolver, $container);
   }
 
@@ -339,5 +341,14 @@ class Application extends SymfonyApplication
     }
 
     return false;
+  }
+
+  /**
+   * Register a Schedule
+   * @param $task
+   */
+  public function schedule($task)
+  {
+    $this->scheduler->addTask($task);
   }
 }

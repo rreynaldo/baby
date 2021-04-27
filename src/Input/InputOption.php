@@ -1,6 +1,6 @@
 <?php
 
-namespace Commander\Input;
+namespace Baby\Input;
 
 
 class InputOption extends \Symfony\Component\Console\Input\InputOption

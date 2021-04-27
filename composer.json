@@ -1,5 +1,5 @@
 {
-  "name": "rreynaldo/commander",
+  "name": "rreynaldo/baby",
   "description": "Commander CLI micro-framework based on Symfony Console",
   "keywords": [
     "cli",
@@ -13,7 +13,7 @@
   "type": "library",
   "autoload": {
     "psr-4": {
-      "Commander\\": "src/"
+      "Baby\\": "src/"
     }
   },
   "require": {

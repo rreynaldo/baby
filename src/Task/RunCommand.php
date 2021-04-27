@@ -1,17 +1,15 @@
 <?php
 
 
-namespace Commander\Task;
+namespace Baby\Task;
 
 
-use Commander\Input\InputArgument;
-use Exception;
-use Symfony\Component\Console\Command\Command;
+use Baby\Command\Command;
+use Baby\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class RunCommand extends Command
-{
+class RunCommand extends Command {
   /**
    * @var Scheduler
    */
@@ -23,19 +21,16 @@ class RunCommand extends Command
     $this->scheduler = $scheduler;
   }
 
-  protected function configure()
-  {
+  protected function configure() {
     $this
-      ->setName("scheduler:run")
+      ->setName("ts:run")
       ->setDescription("Run due tasks")
       ->setHelp("This command actually run the tasks that are due at the moment the command is called.
       This command should not be called manually. Check the documentation to learn how to set CRON jobs.")
-      ->addArgument("id", InputArgument::OPTIONAL, "The ID of the task. Check ts:list for IDs");
+      ->addArgument("id", InputArgument::OPTIONAL, "The ID of the task. Check ts:list for IDs")
+    ;
   }
 
-  /**
-   * @throws Exception
-   */
   protected function execute(InputInterface $input, OutputInterface $output): int
   {
     $id = $input->getArgument("id");
@@ -47,7 +42,7 @@ class RunCommand extends Command
       $id = intval($id);
 
       if (array_key_exists($id - 1, $tasks) === false) {
-        throw new Exception("There are no tasks corresponding to this ID");
+        throw new \Exception("There are no tasks corresponding to this ID");
       }
 
       $this->scheduler->runTask($tasks[$id - 1]);

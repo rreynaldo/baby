@@ -1,6 +1,6 @@
 <?php
 
-namespace Commander\Command;
+namespace Baby\Command;
 
 use InvalidArgumentException;
 

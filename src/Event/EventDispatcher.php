@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Commander\Event;
+namespace Baby\Event;
 
 
 class EventDispatcher

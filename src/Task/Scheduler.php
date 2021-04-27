@@ -1,25 +1,13 @@
 <?php
 
 
-namespace Commander\Task;
+namespace Baby\Task;
 
 
-use Commander\Event\EventDispatcher;
+use Baby\Event\EventDispatcher;
 
-class Scheduler {
-  /**
-   * @var EventDispatcher|null
-   */
-  private ?EventDispatcher $dispatcher;
-
-  public function __construct(EventDispatcher $dispatcher = null) {
-    if ($dispatcher === null) {
-      $dispatcher = new EventDispatcher();
-    }
-
-    $this->dispatcher = $dispatcher;
-  }
-
+class Scheduler
+{
   /**
    * @var TaskInterface[]
    */
@@ -29,7 +17,8 @@ class Scheduler {
    * Adds the task to the task stack
    * @param TaskInterface $task
    */
-  public function addTask(TaskInterface $task) {
+  public function addTask(TaskInterface $task)
+  {
     $this->tasks[] = $task;
   }
 
@@ -37,26 +26,22 @@ class Scheduler {
    * Run due tasks
    * @param string $currentTime
    */
-  public function run($currentTime = "now") {
-    $this->dispatcher->dispatch(SchedulerEvents::ON_START);
-    foreach($this->tasks as $task) {
+  public function run($currentTime = "now")
+  {
+    foreach ($this->tasks as $task) {
       if ($task->isDue($currentTime)) {
         $this->runTask($task);
-      } else {
-        $this->dispatcher->dispatch(SchedulerEvents::ON_SKIP, [$task]);
       }
     }
-    $this->dispatcher->dispatch(SchedulerEvents::ON_END);
   }
 
   /**
    * Run the task
    * @param TaskInterface $task
    */
-  public function runTask(TaskInterface $task) {
-    $this->dispatcher->dispatch(SchedulerEvents::BEFORE_TASK_RUNS, [$task]);
+  public function runTask(TaskInterface $task)
+  {
     $task->run();
-    $this->dispatcher->dispatch(SchedulerEvents::AFTER_TASK_RUNS, [$task]);
   }
 
   /**
