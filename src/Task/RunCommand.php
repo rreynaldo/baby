@@ -23,7 +23,7 @@ class RunCommand extends Command {
 
   protected function configure() {
     $this
-      ->setName("baby:run")
+      ->setName("baby:schedule-run")
       ->setDescription("Run due tasks")
       ->setHelp("This command actually run the tasks that are due at the moment the command is called.
       This command should not be called manually. Check the documentation to learn how to set CRON jobs.")
