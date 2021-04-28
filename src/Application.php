@@ -4,6 +4,7 @@ namespace Baby;
 
 use Baby\Task\ListCommand;
 use Baby\Task\StartSchedulerCommand;
+use Baby\Task\StopSchedulerCommand;
 use Closure;
 use Baby\Command\Command;
 use Baby\Command\ExpressionParser;
@@ -67,6 +68,7 @@ class Application extends SymfonyApplication
     $this->add(new RunCommand($this->scheduler));
     $this->add(new ListCommand($this->scheduler));
     $this->add(new StartSchedulerCommand());
+    $this->add(new StopSchedulerCommand());
 
     parent::__construct($name, $version);
   }
