@@ -4,7 +4,6 @@
 namespace Baby\Task;
 
 
-use Baby\Event\EventDispatcher;
 
 class Scheduler
 {

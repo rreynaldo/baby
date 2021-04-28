@@ -27,9 +27,9 @@ class ListCommand extends Command
   protected function configure()
   {
     $this
-      ->setName("baby-task:list")
-      ->setDescription("List the existing tasks")
-      ->setHelp("This command display the list of registered tasks.")
+      ->setName("baby:scheduler-list")
+      ->setDescription("List the existing schedules")
+      ->setHelp("This command display the list of registered schedules.")
       ->addOption("show-run-dates", null, InputOption::VALUE_OPTIONAL, "Show next run dates (default value: " . self::NUMBER_OF_RUN_DATES . ")", false);
   }
 
