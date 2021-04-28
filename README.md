@@ -28,7 +28,17 @@ $app->command('hello [name] [--yell]', function ($name, $yell, OutputInterface $
 $app->run();
 ```
 
-## Project Usage (Recommended user Baby Skeleton):
+## Running
+
+Running the application is the same as running any other Symfony Console application:
+
+```bash
+$ php app.php greet
+$ php app.php hello john --yell
+$ php app.php hello --yell john
+```
+
+### Project Usage (Recommended user Baby Skeleton):
 
 ```php
 
@@ -40,7 +50,7 @@ use Baby\Application;
 require_once __DIR__ . '/vendor/autoload.php'; 
 include_once(__DIR__ . '/app/config.php'); //Define Main config
 
-// Use DI (php/di)
+// Use Dependency injection (php/di)
 $container = new DI\Container(); 
 
 //Create APP
@@ -59,6 +69,7 @@ $app->add(new AppTestCommand($container));
  $app->run();
 ```
 
+
 ## Commands
 
 ```php
@@ -66,7 +77,6 @@ $app->add(new AppTestCommand($container));
 <?php
 
 namespace App\Commands;
-
 
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -131,4 +141,29 @@ class AppTestSchedule extends AbstractScheduledTask
 }
 ```
 
+## Available Commands
 
+```bash
+Usage:
+  command [options] [arguments]
+
+Options:
+  -h, --help            Display help for the given command. When no command is given display help for the list command
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi            Force ANSI output
+      --no-ansi         Disable ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Available commands:
+  help                  Display help for a command
+  list                  List commands
+ app
+  app:test:command
+ baby
+  baby:schedule-run     Run due tasks
+  baby:scheduler-list   List the existing schedules
+  baby:scheduler-start  Starts command scheduler
+  baby:scheduler-stop   Stops command scheduler
+```
