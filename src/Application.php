@@ -2,12 +2,12 @@
 
 namespace Baby;
 
+use Baby\Task\ListCommand;
 use Closure;
 use Baby\Command\Command;
 use Baby\Command\ExpressionParser;
 use Baby\Task\RunCommand;
 use Baby\Task\Scheduler;
-use Baby\Task\TaskInterface;
 use Exception;
 use InvalidArgumentException;
 use Invoker\Exception\InvocationException;
@@ -32,7 +32,6 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use function DI\value;
 
 
 class Application extends SymfonyApplication
@@ -50,7 +49,7 @@ class Application extends SymfonyApplication
   /**
    * @var Scheduler
    */
-  private $scheduler;
+  private Scheduler $scheduler;
 
   /**
    * @var ContainerInterface|null
@@ -60,13 +59,12 @@ class Application extends SymfonyApplication
 
   public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
   {
-
     $this->expressionParser = new ExpressionParser();
     $this->invoker = new Invoker($this->createParameterResolver());
     $this->scheduler = new Scheduler();
 
     $this->add(new RunCommand($this->scheduler));
-
+    $this->add(new ListCommand($this->scheduler));
 
     parent::__construct($name, $version);
   }
@@ -140,7 +138,7 @@ class Application extends SymfonyApplication
    *         $logger->info('I am greeting');
    *     });
    *
-   * Set `$injectByTypeHint` to `true` to make Silly fetch container entries by their
+   * Set `$injectByTypeHint` to `true` to make Baby fetch container entries by their
    * type-hint, i.e. call `$container->get('Psr\Log\LoggerInterface')`.
    *
    * Set `$injectByParameterName` to `true` to make Silly fetch container entries by

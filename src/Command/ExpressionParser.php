@@ -2,8 +2,8 @@
 
 namespace Baby\Command;
 
-use Commander\Input\InputArgument;
-use Commander\Input\InputOption;
+use Baby\Input\InputArgument;
+use Baby\Input\InputOption;
 
 class ExpressionParser
 {

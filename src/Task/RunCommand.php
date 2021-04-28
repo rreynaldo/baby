@@ -13,7 +13,7 @@ class RunCommand extends Command {
   /**
    * @var Scheduler
    */
-  private Scheduler $scheduler;
+  private $scheduler;
 
   public function __construct(Scheduler $scheduler)
   {
@@ -23,7 +23,7 @@ class RunCommand extends Command {
 
   protected function configure() {
     $this
-      ->setName("ts:run")
+      ->setName("baby:run")
       ->setDescription("Run due tasks")
       ->setHelp("This command actually run the tasks that are due at the moment the command is called.
       This command should not be called manually. Check the documentation to learn how to set CRON jobs.")
@@ -31,8 +31,7 @@ class RunCommand extends Command {
     ;
   }
 
-  protected function execute(InputInterface $input, OutputInterface $output): int
-  {
+  protected function execute(InputInterface $input, OutputInterface $output) {
     $id = $input->getArgument("id");
 
     if (!$id) {

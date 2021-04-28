@@ -32,6 +32,9 @@ abstract class AbstractScheduledTask implements TaskInterface {
     return $this->schedule;
   }
 
+  /**
+   * @throws \Exception
+   */
   public function getNextRunDates($counter): array {
     $result = [];
 
