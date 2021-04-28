@@ -1,6 +1,6 @@
 ## Baby a CLI php framework (commands and schedules)
 
-[![Baby Logo](https://github.com/rreynaldo/baby/logo)](https://github.com/rreynaldo/baby)
+[![Baby Logo](https://raw.githubusercontent.com/rreynaldo/baby/main/logo.png)](https://github.com/rreynaldo/baby)
 
 
 
