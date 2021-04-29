@@ -33,7 +33,7 @@ $app->run();
 Running the application is the same as running any other Symfony Console application:
 
 ```bash
-$ php app.php greet
+$ php app.php hello
 $ php app.php hello john --yell
 $ php app.php hello --yell john
 ```
