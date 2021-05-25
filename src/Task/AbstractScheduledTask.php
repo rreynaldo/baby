@@ -20,7 +20,6 @@ abstract class AbstractScheduledTask implements TaskInterface {
    * @return bool
    */
   public function isDue($currentTime): bool {
-    var_dump($currentTime);
     return $this->schedule->isDue($currentTime);
   }
 
